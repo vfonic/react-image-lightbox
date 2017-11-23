@@ -1354,15 +1354,13 @@ class ReactImageLightbox extends Component {
 
       // for custom rendering
       if (renderItem && needRender(this.props[srcType])) {
-        images.push(() => {
-          return (
-            <div
-              className={`${imageClass} ${styles.image}`}
-              key={'lightbox-item-custom-' + keyEndings[srcType]}>
-              {renderItem(this.props[srcType], imageClass, transforms)}
-            </div>
-          )
-        })
+        images.push(
+          <div
+            className={`${imageClass} ${styles.image}`}
+            key={'lightbox-item-custom-' + keyEndings[srcType]}>
+            {renderItem(this.props[srcType], imageClass, transforms)}
+          </div>
+        )
         return;
       }
 
