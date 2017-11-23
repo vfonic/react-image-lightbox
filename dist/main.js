@@ -1005,7 +1005,7 @@
             }, {
                 key: "render",
                 value: function() {
-                    var _this14 = this, _props = this.props, animationDisabled = _props.animationDisabled, animationDuration = _props.animationDuration, clickOutsideToClose = _props.clickOutsideToClose, discourageDownloads = _props.discourageDownloads, enableZoom = _props.enableZoom, imageTitle = _props.imageTitle, nextSrc = _props.nextSrc, prevSrc = _props.prevSrc, toolbarButtons = _props.toolbarButtons, reactModalStyle = _props.reactModalStyle, _onAfterOpen = _props.onAfterOpen, _state = this.state, zoomLevel = _state.zoomLevel, offsetX = _state.offsetX, offsetY = _state.offsetY, isClosing = _state.isClosing, boxSize = this.getLightboxRect(), transitionStyle = {};
+                    var _this14 = this, _props = this.props, animationDisabled = _props.animationDisabled, animationDuration = _props.animationDuration, clickOutsideToClose = _props.clickOutsideToClose, discourageDownloads = _props.discourageDownloads, enableZoom = _props.enableZoom, imageTitle = _props.imageTitle, nextSrc = _props.nextSrc, prevSrc = _props.prevSrc, toolbarButtons = _props.toolbarButtons, reactModalStyle = _props.reactModalStyle, _onAfterOpen = _props.onAfterOpen, renderItem = _props.renderItem, needRender = _props.needRender, _state = this.state, zoomLevel = _state.zoomLevel, offsetX = _state.offsetX, offsetY = _state.offsetY, isClosing = _state.isClosing, boxSize = this.getLightboxRect(), transitionStyle = {};
                     // Transition settings for sliding animations
                     !animationDisabled && this.isAnimating() && (transitionStyle = _extends({}, transitionStyle, {
                         transition: "transform " + animationDuration + "ms"
@@ -1020,6 +1020,8 @@
                     var images = [], addImage = function(srcType, imageClass, transforms) {
                         // Ignore types that have no source defined for their full size image
                         if (_this14.props[srcType]) {
+                            // for custom rendering
+                            if (renderItem && needRender(_this14.props[srcType])) return void images.push(renderItem(_this14.props[srcType], imageClass, transforms));
                             var bestImageInfo = _this14.getBestImageForType(srcType), imageStyle = _extends({}, transitionStyle, ReactImageLightbox.getTransform(_extends({}, transforms, bestImageInfo)));
                             if (zoomLevel > _constant.MIN_ZOOM_LEVEL && (imageStyle.cursor = "move"), null === bestImageInfo) {
                                 var loadingIcon = void 0;
@@ -1234,14 +1236,14 @@
             // Image sources
             //-----------------------------
             // Main display image url
-            mainSrc: _propTypes2.default.string.isRequired,
+            mainSrc: _propTypes2.default.object.isRequired,
             // eslint-disable-line react/no-unused-prop-types
             // Previous display image url (displayed to the left)
             // If left undefined, movePrev actions will not be performed, and the button not displayed
-            prevSrc: _propTypes2.default.string,
+            prevSrc: _propTypes2.default.object,
             // Next display image url (displayed to the right)
             // If left undefined, moveNext actions will not be performed, and the button not displayed
-            nextSrc: _propTypes2.default.string,
+            nextSrc: _propTypes2.default.object,
             //-----------------------------
             // Image thumbnail sources
             //-----------------------------
@@ -1325,7 +1327,10 @@
             prevLabel: _propTypes2.default.string,
             zoomInLabel: _propTypes2.default.string,
             zoomOutLabel: _propTypes2.default.string,
-            closeLabel: _propTypes2.default.string
+            closeLabel: _propTypes2.default.string,
+            renderItem: _propTypes2.default.func,
+            // for custom rendering
+            needRender: _propTypes2.default.func
         }, ReactImageLightbox.defaultProps = {
             imageTitle: null,
             imageCaption: null,

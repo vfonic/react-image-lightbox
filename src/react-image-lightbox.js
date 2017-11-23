@@ -1322,6 +1322,8 @@ class ReactImageLightbox extends Component {
       toolbarButtons,
       reactModalStyle,
       onAfterOpen,
+      renderItem,
+      needRender
     } = this.props;
     const { zoomLevel, offsetX, offsetY, isClosing } = this.state;
 
@@ -1349,6 +1351,13 @@ class ReactImageLightbox extends Component {
       if (!this.props[srcType]) {
         return;
       }
+
+      // for custom rendering
+      if (renderItem && needRender(this.props[srcType])) {
+        images.push(renderItem(this.props[srcType], imageClass, transforms))
+        return;
+      }
+
       const bestImageInfo = this.getBestImageForType(srcType);
 
       const imageStyle = {
@@ -1697,15 +1706,15 @@ ReactImageLightbox.propTypes = {
   //-----------------------------
 
   // Main display image url
-  mainSrc: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
+  mainSrc: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
 
   // Previous display image url (displayed to the left)
   // If left undefined, movePrev actions will not be performed, and the button not displayed
-  prevSrc: PropTypes.string,
+  prevSrc: PropTypes.object,
 
   // Next display image url (displayed to the right)
   // If left undefined, moveNext actions will not be performed, and the button not displayed
-  nextSrc: PropTypes.string,
+  nextSrc: PropTypes.object,
 
   //-----------------------------
   // Image thumbnail sources
@@ -1818,6 +1827,8 @@ ReactImageLightbox.propTypes = {
   zoomInLabel: PropTypes.string,
   zoomOutLabel: PropTypes.string,
   closeLabel: PropTypes.string,
+  renderItem: PropTypes.func, // for custom rendering
+  needRender: PropTypes.func // for custom rendering
 };
 
 ReactImageLightbox.defaultProps = {
