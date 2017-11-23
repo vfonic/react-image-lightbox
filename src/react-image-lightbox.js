@@ -293,7 +293,7 @@ class ReactImageLightbox extends Component {
 
   // Get info for the best suited image to display with the given srcType
   getBestImageForType(srcType) {
-    let imageSrc = this.props[srcType];
+    let imageSrc = this.props[srcType].src;
     let fitSizes = {};
 
     if (this.isImageLoaded(imageSrc)) {
@@ -412,6 +412,14 @@ class ReactImageLightbox extends Component {
         keyEnding: `t${this.keyCounter - 1}`,
       },
     ];
+  }
+
+  getItemSrc(object) {
+    return object.src
+  }
+
+  getItemData(object) {
+    return object.data
   }
 
   /**
@@ -1212,7 +1220,7 @@ class ReactImageLightbox extends Component {
 
       // Don't rerender if the src is not the same as when the load started
       // or if the component has unmounted
-      if (this.props[srcType] !== imageSrc || !this.mounted) {
+      if (this.getItemSrc(this.props[srcType]) !== this.getItemSrc(imageSrc) || !this.mounted) {
         return;
       }
 
@@ -1225,10 +1233,10 @@ class ReactImageLightbox extends Component {
       const type = srcType.name;
 
       // Load unloaded images
-      if (props[type] && !this.isImageLoaded(props[type])) {
+      if (this.getItemSrc(props[type]) && !this.isImageLoaded(this.getItemSrc(props[type]))) {
         this.loadImage(
           type,
-          props[type],
+          this.getItemSrc(props[type]),
           generateLoadDoneCallback(type, props[type])
         );
       }
@@ -1413,7 +1421,7 @@ class ReactImageLightbox extends Component {
           <div
             className={`${imageClass} ${styles.image} ril-not-loaded`}
             style={imageStyle}
-            key={this.props[srcType] + keyEndings[srcType]}
+            key={this.props[srcType].src + keyEndings[srcType]}
           >
             <div className={styles.loadingContainer}>{loadingIcon}</div>
           </div>
