@@ -956,7 +956,7 @@
                     this.getSrcTypes().forEach(function(srcType) {
                         var type = srcType.name;
                         // Load unloaded images
-                        _this11.getItemSrc(props[type]) && !_this11.isImageLoaded(_this11.getItemSrc(props[type])) && _this11.loadImage(type, _this11.getItemSrc(props[type]), generateLoadDoneCallback(type, props[type]));
+                        props[type] && !_this11.isImageLoaded(_this11.getItemSrc(props[type])) && _this11.loadImage(type, _this11.getItemSrc(props[type]), generateLoadDoneCallback(type, props[type]));
                     });
                 }
             }, {

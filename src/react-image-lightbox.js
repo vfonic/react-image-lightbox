@@ -1233,7 +1233,7 @@ class ReactImageLightbox extends Component {
       const type = srcType.name;
 
       // Load unloaded images
-      if (this.getItemSrc(props[type]) && !this.isImageLoaded(this.getItemSrc(props[type]))) {
+      if (props[type] && !this.isImageLoaded(this.getItemSrc(props[type]))) {
         this.loadImage(
           type,
           this.getItemSrc(props[type]),
