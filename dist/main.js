@@ -1021,10 +1021,14 @@
                         // Ignore types that have no source defined for their full size image
                         if (_this14.props[srcType]) {
                             // for custom rendering
-                            if (renderItem && needRender(_this14.props[srcType])) return void images.push(_react2.default.createElement("div", {
-                                className: imageClass + " " + styles.image,
-                                key: "lightbox-item-custom-" + keyEndings[srcType]
-                            }, renderItem(_this14.props[srcType], imageClass, transforms)));
+                            if (renderItem && needRender(_this14.props[srcType])) {
+                                var divStyle = _extends({}, transitionStyle, ReactImageLightbox.getTransform(_extends({}, transforms, boxSize)));
+                                return void images.push(_react2.default.createElement("div", {
+                                    style: divStyle,
+                                    className: imageClass + " " + styles.image,
+                                    key: "lightbox-item-custom-" + keyEndings[srcType]
+                                }, renderItem(_this14.props[srcType], imageClass, transforms)));
+                            }
                             var bestImageInfo = _this14.getBestImageForType(srcType), imageStyle = _extends({}, transitionStyle, ReactImageLightbox.getTransform(_extends({}, transforms, bestImageInfo)));
                             if (zoomLevel > _constant.MIN_ZOOM_LEVEL && (imageStyle.cursor = "move"), null === bestImageInfo) {
                                 var loadingIcon = void 0;
