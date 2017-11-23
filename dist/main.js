@@ -1022,15 +1022,21 @@
                         if (_this14.props[srcType]) {
                             // for custom rendering
                             if (renderItem && needRender(_this14.props[srcType])) {
-                                var divStyle = _extends({}, transitionStyle, ReactImageLightbox.getTransform(_extends({}, transforms, boxSize)));
-                                return void images.push(_react2.default.createElement("div", {
+                                var divStyle = _extends({}, transitionStyle, ReactImageLightbox.getTransform(_extends({}, transforms, {
+                                    height: boxSize.height,
+                                    width: boxSize.width,
+                                    targetHeight: boxSize.height,
+                                    targetWidth: boxSize.width
+                                })));
+                                return console.log("divStyle", divStyle), void images.push(_react2.default.createElement("div", {
                                     style: divStyle,
                                     className: imageClass + " " + styles.image,
                                     key: "lightbox-item-custom-" + keyEndings[srcType]
                                 }, renderItem(_this14.props[srcType], imageClass, transforms)));
                             }
                             var bestImageInfo = _this14.getBestImageForType(srcType), imageStyle = _extends({}, transitionStyle, ReactImageLightbox.getTransform(_extends({}, transforms, bestImageInfo)));
-                            if (zoomLevel > _constant.MIN_ZOOM_LEVEL && (imageStyle.cursor = "move"), null === bestImageInfo) {
+                            if (console.log("bestImageInfo", bestImageInfo), console.log("imageStyle", imageStyle), 
+                            zoomLevel > _constant.MIN_ZOOM_LEVEL && (imageStyle.cursor = "move"), null === bestImageInfo) {
                                 var loadingIcon = void 0;
                                 // Fall back to loading icon if the thumbnail has not been loaded
                                 return loadingIcon = ieVersion < 10 ? _react2.default.createElement("div", {
@@ -1104,7 +1110,7 @@
                     }), // Previous Image (displayed on the left)
                     addImage("prevSrc", "ril-image-prev " + styles.imagePrev, {
                         x: -1 * boxSize.width
-                    });
+                    }), console.log("images", images);
                     var noop = function() {}, zoomInButtonClasses = [ styles.toolbarItemChild, styles.builtinButton, styles.zoomInButton ], zoomOutButtonClasses = [ styles.toolbarItemChild, styles.builtinButton, styles.zoomOutButton ], zoomInButtonHandler = this.handleZoomInButtonClick, zoomOutButtonHandler = this.handleZoomOutButtonClick;
                     // Disable zooming in when zoomed all the way in
                     zoomLevel === _constant.MAX_ZOOM_LEVEL && (zoomInButtonClasses.push(styles.builtinButtonDisabled), 

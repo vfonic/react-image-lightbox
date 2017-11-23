@@ -1359,9 +1359,14 @@ class ReactImageLightbox extends Component {
           ...transitionStyle,
           ...ReactImageLightbox.getTransform({
             ...transforms,
-            ...boxSize,
-          }),
+            height: boxSize.height,
+            width: boxSize.width,
+            targetHeight: boxSize.height,
+            targetWidth: boxSize.width
+          })
         };
+
+        console.log('divStyle', divStyle)
         images.push(
           <div style={divStyle}
             className={`${imageClass} ${styles.image}`}
@@ -1381,6 +1386,9 @@ class ReactImageLightbox extends Component {
           ...bestImageInfo,
         }),
       };
+
+      console.log('bestImageInfo', bestImageInfo)
+      console.log('imageStyle', imageStyle)
 
       if (zoomLevel > MIN_ZOOM_LEVEL) {
         imageStyle.cursor = 'move';
@@ -1501,6 +1509,8 @@ class ReactImageLightbox extends Component {
     addImage('prevSrc', `ril-image-prev ${styles.imagePrev}`, {
       x: -1 * boxSize.width,
     });
+
+    console.log('images', images)
 
     const noop = () => {};
 
