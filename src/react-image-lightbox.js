@@ -1366,12 +1366,11 @@ class ReactImageLightbox extends Component {
           })
         };
 
-        console.log('divStyle', divStyle)
         images.push(
           <div style={divStyle}
             className={`${imageClass} ${styles.image}`}
             key={'lightbox-item-custom-' + keyEndings[srcType]}>
-            {renderItem(this.props[srcType], imageClass, transforms)}
+            {renderItem(this.props[srcType])}
           </div>
         )
         return;
@@ -1386,9 +1385,6 @@ class ReactImageLightbox extends Component {
           ...bestImageInfo,
         }),
       };
-
-      console.log('bestImageInfo', bestImageInfo)
-      console.log('imageStyle', imageStyle)
 
       if (zoomLevel > MIN_ZOOM_LEVEL) {
         imageStyle.cursor = 'move';
@@ -1509,8 +1505,6 @@ class ReactImageLightbox extends Component {
     addImage('prevSrc', `ril-image-prev ${styles.imagePrev}`, {
       x: -1 * boxSize.width,
     });
-
-    console.log('images', images)
 
     const noop = () => {};
 
